@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -21,6 +23,56 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('create-barang', function (User $user) {
+            $userRole = $user->role;
+
+            switch($userRole){
+                case 'admin':
+                    return true;
+                case 'staff':
+                    return true;
+                default:
+                    return false;
+            }
+        });
+
+        Gate::define('read-barang', function (User $user) {
+            $userRole = $user->role;
+
+            switch($userRole){
+                case 'admin':
+                    return true;
+                case 'staff':
+                    return true;
+                default:
+                    return false;
+            }
+        });
+
+        Gate::define('update-barang', function (User $user) {
+            $userRole = $user->role;
+
+            switch($userRole){
+                case 'admin':
+                    return true;
+                case 'staff':
+                    return true;
+                default:
+                    return false;
+            }
+        });
+
+        Gate::define('delete-barang', function (User $user) {
+            $userRole = $user->role;
+
+            switch($userRole){
+                case 'admin':
+                    return true;
+                case 'staff':
+                    return false;
+                default:
+                    return false;
+            }
+        });
     }
 }

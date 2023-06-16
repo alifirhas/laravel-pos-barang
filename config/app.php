@@ -168,6 +168,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        // Mongodb
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
     ])->toArray(),
 
     /*

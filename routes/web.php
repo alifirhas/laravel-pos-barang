@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     ], function () {
         Route::get('/dashboard', fn() => view('admin.dashboard'))->name('dashboard');
         Route::resource('barangs', \App\Http\Controllers\Admin\BarangController::class);
+        Route::get('/log-barang', [\App\Http\Controllers\Admin\LogBarangController::class, 'index'])->name('log_barang');
     });
 
     // Staff

@@ -24,6 +24,14 @@
                         </x-nav-link>
                     </div>
                 @endif
+
+                @if (Route::has('admin.log_barang'))
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('admin.log_barang')" :active="request()->routeIs('admin.log_barang')">
+                            {{ __('Log Barang') }}
+                        </x-nav-link>
+                    </div>
+                @endif
             </div>
 
             <!-- Settings Dropdown -->

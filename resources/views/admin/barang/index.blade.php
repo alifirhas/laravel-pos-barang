@@ -82,7 +82,7 @@
                                         </td>
                                         <td>
                                             <div class="flex gap-2">
-                                                <a href="#" class="btn btn-info">Edit</a>
+                                                <a href="{{ route('admin.barangs.edit', $barang) }}" class="btn btn-info">Edit</a>
 
                                                 <form action="{{ route('admin.barangs.destroy', $barang) }}"
                                                     method="POST">

@@ -67,7 +67,7 @@ class AuthServiceProvider extends ServiceProvider
 
             switch($userRole){
                 case 'admin':
-                    return true;
+                    return false;
                 case 'staff':
                     return false;
                 default:

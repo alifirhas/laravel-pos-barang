@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Barang;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Barang\StoreBarangRequest;
 use App\Http\Requests\Barang\UpdateBarangRequest;
+use App\Models\Barang;
 use Exception;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 
 class BarangController extends Controller
 {
@@ -18,6 +17,11 @@ class BarangController extends Controller
      */
     public function index()
     {
+        // Validate user permission
+        if (!Gate::allows('read_barang')) {
+            abort(403, "Unauthorized action");
+        }
+
         $barangs = Barang::paginate(10); // Menampilkan 10 produk per halaman
 
         return view('admin.barang.index', [
@@ -30,6 +34,11 @@ class BarangController extends Controller
      */
     public function create()
     {
+        // Validate user permission
+        if (!Gate::allows('create_barang')) {
+            abort(403, "Unauthorized action");
+        }
+
         return view('admin.barang.create');
     }
 
@@ -41,26 +50,30 @@ class BarangController extends Controller
         // Validate request otomatis
 
         // Validate user permission
-        if(! Gate::allows('create_barang')){
-            abort(403);
+        if (!Gate::allows('create_barang')) {
+            abort(403, "Unauthorized action");
         }
 
-        // Ambil data dari request
-        $barcode = $request->input('barcode');
-        $nama_barang = $request->input('nama_barang');
-        $harga_satuan = $request->input('harga_satuan');
-        $stok = $request->input('stok');
-
-        // Store data ke database
-        $query = Barang::insert([
-            "barang_id" => Str::uuid(),
-            "barcode" => $barcode,
-            "nama_barang" => $nama_barang,
-            "harga_satuan" => $harga_satuan,
-            "stok" => $stok,
-        ]);
-
-        return redirect()->route('admin.barangs.index')->with('success', 'Data barang berhasil ditambahkan');
+        try {
+            // Ambil data dari request
+            $barcode = $request->input('barcode');
+            $nama_barang = $request->input('nama_barang');
+            $harga_satuan = $request->input('harga_satuan');
+            $stok = $request->input('stok');
+    
+            // Store data ke database
+            $query = Barang::insert([
+                "barang_id" => Str::uuid(),
+                "barcode" => $barcode,
+                "nama_barang" => $nama_barang,
+                "harga_satuan" => $harga_satuan,
+                "stok" => $stok,
+            ]);
+    
+            return redirect()->route('admin.barangs.index')->with('success', 'Data barang berhasil ditambahkan');
+        } catch (Exception $e) {
+            return redirect()->route('admin.barangs.index')->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -68,6 +81,11 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
+        // Validate user permission
+        if (!Gate::allows('read_barang')) {
+            abort(403, "Unauthorized action");
+        }
+
         return view('admin.barang.show', [
             "barang" => $barang,
         ]);
@@ -76,25 +94,63 @@ class BarangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Barang $barang)
     {
-        //
+        // Validate user permission
+        if (!Gate::allows('read_barang')) {
+            abort(403, "Unauthorized action");
+        }
+
+        return view('admin.barang.edit', [
+            "barang" => $barang,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBarangRequest $request, string $id)
+    public function update(UpdateBarangRequest $request, Barang $barang)
     {
-        //
+        // Validasi data otomatis
+
+        // Validate user permission
+        if(! Gate::allows('update_barang')){
+            abort(403, "Unauthorized action");
+        }
+
+        try {
+            // Ambil data dari request
+            $barcode = $request->input('barcode');
+            $nama_barang = $request->input('nama_barang');
+            $harga_satuan = $request->input('harga_satuan');
+            $stok = $request->input('stok');
+    
+            // Update data di database
+            $query = Barang::where('barang_id', $barang->barang_id)->update([
+                "barcode" => $barcode,
+                "nama_barang" => $nama_barang,
+                "harga_satuan" => $harga_satuan,
+                "stok" => $stok,
+            ]);
+            
+            return redirect()->back()->with('success', 'Data barang berhasil diubah');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Barang $barang)
-    {   
+    {
+        // Validate user permission
+        if(! Gate::allows('delete_barang')){
+            abort(403, "Unauthorized action");
+        }
+
         try {
+
             $findBarang = Barang::where('barang_id', $barang->barang_id);
             $findBarang->delete();
 

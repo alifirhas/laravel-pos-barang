@@ -23,7 +23,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('create-barang', function (User $user) {
+        Gate::define('create_barang', function (User $user) {
             $userRole = $user->role;
 
             switch($userRole){
@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        Gate::define('read-barang', function (User $user) {
+        Gate::define('read_barang', function (User $user) {
             $userRole = $user->role;
 
             switch($userRole){
@@ -49,7 +49,7 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        Gate::define('update-barang', function (User $user) {
+        Gate::define('update_barang', function (User $user) {
             $userRole = $user->role;
 
             switch($userRole){
@@ -62,7 +62,7 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
-        Gate::define('delete-barang', function (User $user) {
+        Gate::define('delete_barang', function (User $user) {
             $userRole = $user->role;
 
             switch($userRole){

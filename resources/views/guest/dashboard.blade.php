@@ -5,40 +5,39 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <!-- Tampilkan data barang -->
                     <div class="relative overflow-x-auto">
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th>
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th>
                                         Nama Barang
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th>
                                         barcode
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th>
                                         Harga satuan
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th>
                                         Stok
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($barangs as $barang)
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                    <tr>
                                         <td></td>
-                                        <td class="px-6 py-4">
+                                        <td>
                                             {{ $barang->nama_barang }}
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td>
                                             {{ $barang->barcode }}
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td>
                                             @convertIDR($barang->harga_satuan)
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td>
                                             {{ $barang->stok }}
                                         </td>
                                     </tr>

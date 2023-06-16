@@ -53,7 +53,7 @@
                                 <span class="label-text">Harga Satuan</span>
                             </label>
                             <div class="join">
-                                <button class="btn join-item rounded-l-full">Rp</button>
+                                <button class="btn join-item rounded-l-full" disabled>Rp</button>
                                 <input type="number" placeholder="Harga satuan" name="harga_satuan" maxlength="12"
                                     oninput="this.value=this.value.slice(0,this.maxLength)"
                                     class="input input-bordered w-full join-item" placeholder="" required

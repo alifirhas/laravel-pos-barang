@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Barang;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Barang\StoreBarangRequest;
 use App\Http\Requests\Barang\UpdateBarangRequest;
+use Exception;
 
 class BarangController extends Controller
 {
@@ -51,7 +53,7 @@ class BarangController extends Controller
 
         // Store data ke database
         $query = Barang::insert([
-            "barang_id" => 'UUID()',
+            "barang_id" => Str::uuid(),
             "barcode" => $barcode,
             "nama_barang" => $nama_barang,
             "harga_satuan" => $harga_satuan,
@@ -64,9 +66,11 @@ class BarangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Barang $barang)
     {
-        //
+        return view('admin.barang.show', [
+            "barang" => $barang,
+        ]);
     }
 
     /**
@@ -88,8 +92,15 @@ class BarangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(Barang $barang)
+    {   
+        try {
+            $findBarang = Barang::where('barang_id', $barang->barang_id);
+            $findBarang->delete();
+
+            return redirect()->route('admin.barangs.index')->with('success', 'Data barang berhasil dihapus');
+        } catch (Exception $e) {
+            return redirect()->route('admin.barangs.index')->with('error', $e->getMessage());
+        }
     }
 }

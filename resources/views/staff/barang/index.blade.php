@@ -63,29 +63,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($barangs as $barang)
+                                @if (count($barangs) <= 0)
                                     <tr>
-                                        <td></td>
-                                        <td>
-                                            <a href="{{ route('staff.barangs.show', $barang) }}" class="underline">
-                                                {{ $barang->nama_barang }}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            {{ $barang->barcode }}
-                                        </td>
-                                        <td>
-                                            @convertIDR($barang->harga_satuan)
-                                        </td>
-                                        <td>
-                                            {{ $barang->stok }}
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('staff.barangs.edit', $barang) }}"
-                                                class="btn btn-info">Edit</a>
-                                        </td>
+                                        <td colspan="6" class="text-center">Masih belum ada data</td>
                                     </tr>
-                                @endforeach
+                                @else
+                                    @foreach ($barangs as $barang)
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <a href="{{ route('staff.barangs.show', $barang) }}" class="underline">
+                                                    {{ $barang->nama_barang }}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {{ $barang->barcode }}
+                                            </td>
+                                            <td>
+                                                @convertIDR($barang->harga_satuan)
+                                            </td>
+                                            <td>
+                                                {{ $barang->stok }}
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('staff.barangs.edit', $barang) }}"
+                                                    class="btn btn-info">Edit</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

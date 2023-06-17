@@ -25,23 +25,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($barangs as $barang)
+                                @if (count($barangs) <= 0)
                                     <tr>
-                                        <td></td>
-                                        <td>
-                                            {{ $barang->nama_barang }}
-                                        </td>
-                                        <td>
-                                            {{ $barang->barcode }}
-                                        </td>
-                                        <td>
-                                            @convertIDR($barang->harga_satuan)
-                                        </td>
-                                        <td>
-                                            {{ $barang->stok }}
-                                        </td>
+                                        <td colspan="5" class="text-center">Masih belum ada data</td>
                                     </tr>
-                                @endforeach
+                                @else
+                                    @foreach ($barangs as $barang)
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                {{ $barang->nama_barang }}
+                                            </td>
+                                            <td>
+                                                {{ $barang->barcode }}
+                                            </td>
+                                            <td>
+                                                @convertIDR($barang->harga_satuan)
+                                            </td>
+                                            <td>
+                                                {{ $barang->stok }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

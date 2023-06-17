@@ -41,32 +41,38 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($actionLogs as $log)
+                                @if (count($actionLogs) <= 0)
                                     <tr>
-                                        <td></td>
-                                        <td>
-                                            {{ $log->user_id }}
-                                        </td>
-                                        <td>
-                                            {{ $log->username }}
-                                        </td>
-                                        <td>
-                                            {{ $log->action }}
-                                        </td>
-                                        <td>
-                                            {{ $log->description }}
-                                        </td>
-                                        <td>
-                                            {{ $log->related_id }}
-                                        </td>
-                                        <td>
-                                            {{ $log->related_type }}
-                                        </td>
-                                        <td>
-                                            {{ $log->created_at }}
-                                        </td>
+                                        <td colspan="8" class="text-center">Masih belum ada data</td>
                                     </tr>
-                                @endforeach
+                                @else
+                                    @foreach ($actionLogs as $log)
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                {{ $log->user_id }}
+                                            </td>
+                                            <td>
+                                                {{ $log->username }}
+                                            </td>
+                                            <td>
+                                                {{ $log->action }}
+                                            </td>
+                                            <td>
+                                                {{ $log->description }}
+                                            </td>
+                                            <td>
+                                                {{ $log->related_id }}
+                                            </td>
+                                            <td>
+                                                {{ $log->related_type }}
+                                            </td>
+                                            <td>
+                                                {{ $log->created_at }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

@@ -12,7 +12,7 @@ class LogBarangController extends Controller
      */
     public function index()
     {
-        $actionLogs = ActionLog::where('related_type', '=', 'product')->paginate(2);
+        $actionLogs = ActionLog::where('related_type', '=', 'barang')->paginate(2);
 
         return view('admin.log_barang.index', [
             'actionLogs' => $actionLogs,

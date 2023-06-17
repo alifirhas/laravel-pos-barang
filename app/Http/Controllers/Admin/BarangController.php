@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Barang\StoreBarangRequest;
 use App\Http\Requests\Barang\UpdateBarangRequest;
+use App\Models\ActionLog;
 use App\Models\Barang;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
@@ -60,16 +62,30 @@ class BarangController extends Controller
             $nama_barang = $request->input('nama_barang');
             $harga_satuan = $request->input('harga_satuan');
             $stok = $request->input('stok');
-    
+
             // Store data ke database
-            $query = Barang::insert([
-                "barang_id" => Str::uuid(),
-                "barcode" => $barcode,
-                "nama_barang" => $nama_barang,
-                "harga_satuan" => $harga_satuan,
-                "stok" => $stok,
+            $barangUUID = Str::uuid();
+            $insetBarang = new Barang();
+
+            $insetBarang->barang_id = $barangUUID;
+            $insetBarang->barcode = $barcode;
+            $insetBarang->nama_barang = $nama_barang;
+            $insetBarang->harga_satuan = $harga_satuan;
+            $insetBarang->stok = $stok;
+
+            $insetBarang->save();
+
+            // Simpan log create ke dalam action log
+            ActionLog::insert([
+                "user_id" => Auth::user()->id,
+                "user_email" => Auth::user()->email,
+                "activity_type" => "create",
+                "object_type" => "barangs",
+                "object_id" => $insetBarang->barang_id->toString(),
+                "object_capture" => $insetBarang->toArray(),
+                "created_at" => $insetBarang->created_at->toString(),
             ]);
-    
+
             return redirect()->route('admin.barangs.index')->with('success', 'Data barang berhasil ditambahkan');
         } catch (Exception $e) {
             return redirect()->route('admin.barangs.index')->with('error', $e->getMessage());
@@ -114,7 +130,7 @@ class BarangController extends Controller
         // Validasi data otomatis
 
         // Validate user permission
-        if(! Gate::allows('update_barang')){
+        if (!Gate::allows('update_barang')) {
             abort(403, "Unauthorized action");
         }
 
@@ -124,15 +140,32 @@ class BarangController extends Controller
             $nama_barang = $request->input('nama_barang');
             $harga_satuan = $request->input('harga_satuan');
             $stok = $request->input('stok');
-    
+
             // Update data di database
-            $query = Barang::where('barang_id', $barang->barang_id)->update([
-                "barcode" => $barcode,
-                "nama_barang" => $nama_barang,
-                "harga_satuan" => $harga_satuan,
-                "stok" => $stok,
+            $updateBarang = Barang::find($barang->barang_id);
+            $updateBarangBefore = new Barang($updateBarang->toArray());
+
+            $updateBarang->barcode = $barcode;
+            $updateBarang->nama_barang = $nama_barang;
+            $updateBarang->harga_satuan = $harga_satuan;
+            $updateBarang->stok = $stok;
+
+            $updateBarang->save();
+
+            // Simpan log update ke dalam action log
+            ActionLog::insert([
+                "user_id" => Auth::user()->id,
+                "user_email" => Auth::user()->email,
+                "activity_type" => "update",
+                "object_type" => "barangs",
+                "object_id" => $updateBarang->barang_id,
+                "object_capture" => [
+                    "before" => $updateBarangBefore->toArray(),
+                    "after" => $updateBarang->toArray(),
+                ],
+                "created_at" => $updateBarang->updated_at->toString(),
             ]);
-            
+
             return redirect()->back()->with('success', 'Data barang berhasil diubah');
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
@@ -145,13 +178,25 @@ class BarangController extends Controller
     public function destroy(Barang $barang)
     {
         // Validate user permission
-        if(! Gate::allows('delete_barang')){
+        if (!Gate::allows('delete_barang')) {
             abort(403, "Unauthorized action");
         }
 
         try {
 
-            $findBarang = Barang::where('barang_id', $barang->barang_id);
+            $findBarang = Barang::find($barang->barang_id);
+
+            // Simpan log update ke dalam action log
+            ActionLog::insert([
+                "user_id" => Auth::user()->id,
+                "user_email" => Auth::user()->email,
+                "activity_type" => "delete",
+                "object_type" => "barangs",
+                "object_id" => $findBarang->barang_id,
+                "object_capture" => $findBarang->toArray(),
+                "created_at" => strval(date('D M d Y H:i:s \G\M\TO')),
+            ]);
+
             $findBarang->delete();
 
             return redirect()->route('admin.barangs.index')->with('success', 'Data barang berhasil dihapus');

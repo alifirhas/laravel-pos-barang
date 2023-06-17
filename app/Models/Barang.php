@@ -22,5 +22,5 @@ class Barang extends Model
     protected $primaryKey = 'barang_id';
     public $incrementing = false;
     protected $keyType = 'string';
-    public $timestamps = true;
+    // public $timestamps = true;
 }

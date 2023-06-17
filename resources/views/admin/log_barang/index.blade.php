@@ -21,19 +21,13 @@
                                         User ID
                                     </th>
                                     <th>
-                                        Username
+                                        User Email
                                     </th>
                                     <th>
-                                        Action
+                                        Action type
                                     </th>
                                     <th>
-                                        Description
-                                    </th>
-                                    <th>
-                                        Related ID
-                                    </th>
-                                    <th>
-                                        Related Type
+                                        Barang ID
                                     </th>
                                     <th>
                                         Date
@@ -43,7 +37,7 @@
                             <tbody>
                                 @if (count($actionLogs) <= 0)
                                     <tr>
-                                        <td colspan="8" class="text-center">Masih belum ada data</td>
+                                        <td colspan="6" class="text-center">Masih belum ada data</td>
                                     </tr>
                                 @else
                                     @foreach ($actionLogs as $log)
@@ -53,19 +47,13 @@
                                                 {{ $log->user_id }}
                                             </td>
                                             <td>
-                                                {{ $log->username }}
+                                                {{ $log->user_email }}
                                             </td>
                                             <td>
-                                                {{ $log->action }}
+                                                {{ $log->activity_type }}
                                             </td>
                                             <td>
-                                                {{ $log->description }}
-                                            </td>
-                                            <td>
-                                                {{ $log->related_id }}
-                                            </td>
-                                            <td>
-                                                {{ $log->related_type }}
+                                                {{ $log->object_id }}
                                             </td>
                                             <td>
                                                 {{ $log->created_at }}

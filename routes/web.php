@@ -24,6 +24,15 @@ Route::group([
     Route::get('/dashboard', [\App\Http\Controllers\Guest\BarangController::class, 'index'])->name('dashboard');
 });
 
+// My CV
+Route::prefix('cv')->as("cv.")->group(function () {
+    Route::get('/', fn() => view('cv.index'))->name('index');
+    Route::get('/project', fn() => view('cv.pages.project.index'))->name('project');
+    Route::get('/semboyan_cantik', fn() => view('cv.pages.semboyan_cantik.index'))->name('semboyan_cantik');
+    Route::get('/mps', fn() => view('cv.pages.mps.index'))->name('mps');
+    Route::get('/sipp', fn() => view('cv.pages.sipp.index'))->name('sipp');
+});
+
 // Auth
 Route::middleware(['auth'])->group(function () {
 

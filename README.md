@@ -12,7 +12,7 @@ Proyek ini merupakan sebuah proyek mini yang berkaitan dengan inventarisasi bara
 
 ## Peringatan
 
-Ketika proyek ini dibuat, Laravel 10 belum didukung oleh jenssegers/mongodb. Oleh karena itu, proyek ini menggunakan paket mongodb versi dev-master. Sebelum menginstal proyek ini, jika jenssegers/mongodb telah mendukung Laravel 10, silahkan ubah jenssegers/mongodb ke versi yang mendukung Laraavel 10.
+Ketika proyek ini dibuat, Laravel 10 belum didukung oleh jenssegers/mongodb. Oleh karena itu, proyek ini menggunakan paket mongodb versi dev-master. Sebelum menginstal proyek ini, jika jenssegers/mongodb telah mendukung Laravel 10, silahkan ubah jenssegers/mongodb ke versi yang mendukung Laravel 10.
 
 ## Dibangun dengan
 
@@ -31,7 +31,7 @@ Ini adalah langkah instalasi yang harus dilakukan untuk menginstal proyek ini pa
 
 - npm
 - composer
-- php
+- XAMPP/LAMPP
 - php mongodb extension
 - Laravel
 - pecl
@@ -58,7 +58,7 @@ Di bawah ini adalah langkah-langkah yang diperlukan untuk proses instalasi proye
     Beberapa hal yang harus dilakukan di .env
 
     1. Sesuaikan variable koneksi MySQL
-        1. DB_HOST → terdapat perbedaan antara [localhost](http://localhost) dan 127.0.0.1
+        1. DB_HOST → terdapat perbedaan antara localhost dan 127.0.0.1
         2. DB_PORT → Cek port yang digunakan
         3. DB_DATABASE → Nama database yang akan digunakan untuk migration
         4. DB_USERNAME → Username dari akun yang dapat mengakses database

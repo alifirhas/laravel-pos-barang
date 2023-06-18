@@ -43,11 +43,11 @@ Di bawah ini adalah langkah-langkah yang diperlukan untuk proses instalasi proye
 1. Clone repository dengan perintah
 
     ```bash
-    git clone 
+    git clone https://github.com/alifirhas/laravel-pos-barang.git
     ```
 
 2. Masuk ke dalam folder proyek yang telah di-clone
-3. salin file **.env.example** ke **********.env.********** Langkah ini bisa dilakukan dengan copy-paste atau menggunakan perintah
+3. salin file **.env.example** ke **.env.** Langkah ini bisa dilakukan dengan copy-paste atau menggunakan perintah
 
     ```bash
     cp .env.example .env

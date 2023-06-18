@@ -1,66 +1,125 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Mini Inventaris Barang
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <a href="https://laravel.com" target="_blank">
+        <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
+    </a>
 </p>
 
-## About Laravel
+## Tentang Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Proyek ini merupakan sebuah proyek mini yang berkaitan dengan inventarisasi barang. Menggunakan framework Laravel 10, proyek ini memanfaatkan database MySQL dan MongoDB. Fokus utama proyek ini adalah simulasi aplikasi inventarisasi barang mini. Perhatian utama dalam proyek ini adalah pada pengembangan bagian back-end, termasuk penggunaan route resource, gate, custom request, dan penanganan kesalahan pada front-end.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Peringatan
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Ketika proyek ini dibuat, Laravel 10 belum didukung oleh jenssegers/mongodb. Oleh karena itu, proyek ini menggunakan paket mongodb versi dev-master. Sebelum menginstal proyek ini, jika jenssegers/mongodb telah mendukung Laravel 10, silahkan ubah jenssegers/mongodb ke versi yang mendukung Laraavel 10.
 
-## Learning Laravel
+## Dibangun dengan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Laravel 10
+2. Laravel Breeze
+3. Tailwind
+4. DaisyUI
+5. MySQL
+6. MongoDB
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Instalasi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Ini adalah langkah instalasi yang harus dilakukan untuk menginstal proyek ini pada mesin local.
 
-## Laravel Sponsors
+### Requirements
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- npm
+- composer
+- php
+- php mongodb extension
+- Laravel
+- pecl
 
-### Premium Partners
+### Instalasi proyek
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Di bawah ini adalah langkah-langkah yang diperlukan untuk proses instalasi proyek. Pastikan semua requirements telah ter-install.
 
-## Contributing
+1. Clone repository dengan perintah
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    ```bash
+    git clone 
+    ```
 
-## Code of Conduct
+2. Masuk ke dalam folder proyek yang telah di-clone
+3. salin file **.env.example** ke **********.env.********** Langkah ini bisa dilakukan dengan copy-paste atau menggunakan perintah
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    ```bash
+    cp .env.example .env
+    # Jangan menggunakan perintah mv .env.example .env
+    # Karena ini akan menghapus file .env.example
+    ```
 
-## Security Vulnerabilities
+    Beberapa hal yang harus dilakukan di .env
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    1. Sesuaikan variable koneksi MySQL
+        1. DB_HOST → terdapat perbedaan antara [localhost](http://localhost) dan 127.0.0.1
+        2. DB_PORT → Cek port yang digunakan
+        3. DB_DATABASE → Nama database yang akan digunakan untuk migration
+        4. DB_USERNAME → Username dari akun yang dapat mengakses database
+        5. DB_PASSWORD → Password dari username yang dapat mengakses database
+    2. Sesuaikan variable koneksi MongoDB
+        1. MONGODB_DSN → Bisa didapatkan dari MongoDB atlas dengan koneksi pada driver PHP setelah membuat cluster
+        2. MONGODB_DATABASE → Nama database yang ada pada cluster
 
-## License
+        Untuk contoh tolong gunakan variable ini
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+        ```text
+        DB_CONNECTION=mysql
+        DB_HOST=127.0.0.1
+        DB_PORT=3306
+        DB_DATABASE=pos-barang
+        DB_USERNAME=root
+        DB_PASSWORD=
+        
+        # DSN mongodb dapat digunakan
+        MONGODB_DSN=mongodb+srv://admin:admin@cluster0.nwciuhk.mongodb.net/?retryWrites=true&w=majority
+        MONGODB_DATABASE=posbarang
+        ```
+
+4. Generate kunci aplikasi Laravel dengan menggunakan perintah
+
+    ```bash
+    php artisan key:generate
+    ```
+
+5. Install package composer
+
+    ```bash
+    composer install
+    ```
+
+6. Install package NPM
+
+    ```bash
+    npm install
+    ```
+
+7. Buat database sesuai dengan nama database yang ada pada .env atau yang telah ditentukan pada phpmyadmin atau DBMS MySQL lainnya
+8. Migrasi database menggunakan perintah
+
+    ```bash
+    php artisan migrate
+    ```
+
+    Jika menggunakan database MongoDB yang telah saya sediakan, tolong jalankan seeder untuk mengisi data awal pada database yang menyimpan data akun user (admin dan staff) juga data barang yang sesuai dengan log aktivitas
+
+    ```bash
+    php artisan db:seed --class=UsersTableSeeder
+    php artisan db:seed --class=BarangSeeder
+    ```
+
+9. Jalankan perintah `npm run build` untuk membangun tailwind css ui atau menjalankan perintah `npm run dev` untuk membuat server live tailwind CSS
+10. Pada terminal yang berbeda, jalankan perintah `php artisan serve` untuk memulai server Laravel 10
+
+Setelah langkah-langkah di atas selesai, proyek Laravel 10 Anda harus siap digunakan. Pastikan untuk membaca dokumentasi Laravel resmi dan mengacu pada instruksi yang diberikan oleh pengembang proyek jika ada langkah-langkah khusus yang perlu dilakukan.
+
+### Catatan instalasi
+
+- Pastikan untuk membaca dokumentasi instalasi untuk setiap requirement sesuai dengan sistem operasi yang digunakan, karena ada beberapa cara instalasi yang berbeda tergantung pada sistem operasinya.
+- Jika Anda menggunakan XAMPP di Linux dan terdapat dua versi PHP yang berbeda, disarankan untuk menginstal ekstensi MongoDB pada PHP sistem dan PHP XAMPP. Hal ini disebabkan oleh lokasi instalasi Composer, di mana Composer akan menggunakan PHP dari sistem.
